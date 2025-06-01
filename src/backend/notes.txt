@@ -1,0 +1,15 @@
+1.  We must place .env to root folder(backend\.evn)
+2.  Run migration py scripts that is located on scripts folder. from backend dir. using cmd
+3.  app folder contains the script to do which also should be ported to deployed server.
+4.  Do nto move scripts\* to live , its for creation schema only. 
+    You may port it first time to live server, after creaing schema, you must delete the file.
+
+5.  pip install -r requirements.txt
+
+
+
+
+Authentication (login, JWT)?
+
+Role & permission checking middleware?
+

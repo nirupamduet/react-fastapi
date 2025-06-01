@@ -1,0 +1,31 @@
+This is a Base Project template.
+
+Forked from :
+https://github.com/Buuntu/fastapi-react
+
+Backend (API):
+Python , Fast API, MySQL or MongoDB Supported
+
+Font End (WEB) :
+React, TypeScript
+Material UI used except DataTable 		## https://mui.com/material-ui/
+PrimeReact UI for DataTable operations	## https://primereact.org/
+
+
+
+Chat GPT asking
+****************
+
+I am planning for a project. forked from https://github.com/Buuntu/fastapi-react
+
+BackEnd 	: Python, Fast API. MongoDB or MYSQL
+Font End 	: React, TypeScript
+				React Component from Material UI, PrimeReact for DataTable
+				
+				
+Feature I would like to implement:-
+
+1. User Management Module 
+2. ACL & Role Management Module 
+3. Log Management Module 
+3. Activity Log Management Module 
