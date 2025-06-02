@@ -5,5 +5,9 @@
         "backend/app"
     ],
     "python.formatting.provider": "black",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "**/__init__.py": true,
+        "**/__pycache__": true,
+    }
 }

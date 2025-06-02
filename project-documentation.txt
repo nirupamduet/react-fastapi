@@ -12,9 +12,8 @@ Material UI used except DataTable 		## https://mui.com/material-ui/
 PrimeReact UI for DataTable operations	## https://primereact.org/
 
 
-
-Chat GPT asking
-****************
+Chat GPT asking (02.06.2025)
+****************************
 
 I am planning for a project. forked from https://github.com/Buuntu/fastapi-react
 
@@ -29,3 +28,29 @@ Feature I would like to implement:-
 2. ACL & Role Management Module 
 3. Log Management Module 
 3. Activity Log Management Module 
+
+
+
+
+
+
+
+Chat GPT asking (01.06.2025)
+****************************
+
+I am planning for a project. forked from https://github.com/Buuntu/fastapi-react
+
+BackEnd 	: Python, Fast API. MongoDB or MYSQL
+Font End 	: React, TypeScript
+				React Component from Material UI, PrimeReact for DataTable
+				
+				
+Feature I would like to implement:-
+
+1. User Management Module 
+2. ACL & Role Management Module 
+3. Log Management Module 
+3. Activity Log Management Module 
+
+
+
