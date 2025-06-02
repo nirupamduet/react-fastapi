@@ -18,5 +18,6 @@ class CustomerOut(CustomerBase):
     last_login_date: Optional[datetime]
     roles: List[CustomerRoleOut] = []
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }

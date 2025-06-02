@@ -2,6 +2,9 @@ from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from app.db.database import Base
+from app.models.customers import customer_password
+from app.models.customers import customer_role
+from app.models.customers import customer_customer_role
 
 class Customer(Base):
     __tablename__ = 'customers'
