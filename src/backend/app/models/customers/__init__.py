@@ -1,9 +1,12 @@
 # app/models/customers/__init__.py
 
+
 from .customer import Customer
 from .customer_password import CustomerPassword
 from .customer_role import CustomerRole
-from .customer_customer_role import CustomerCustomerRole
+from app.models.organization.office import Office
+from app.models.organization.department import Department
+from app.models.organization.section import Section
 
 from sqlalchemy.orm import relationship
 
@@ -11,7 +14,7 @@ from sqlalchemy.orm import relationship
 Customer.passwords = relationship(
     "CustomerPassword",
     back_populates="customer",
-    ## cascade="all, delete-orphan"
+    cascade="all, delete-orphan"
 )
 CustomerPassword.customer = relationship(
     "Customer",
@@ -19,40 +22,24 @@ CustomerPassword.customer = relationship(
 )
 
 # Many-to-Many: Customer <-> CustomerRole
-Customer.roles = relationship(
-    "CustomerRole",
-    secondary="customer_customer_role",
-    back_populates="customers"
-)
-CustomerRole.customers = relationship(
-    "Customer",
-    secondary="customer_customer_role",
-    back_populates="roles"
-)
+# Customer.roles = relationship(
+#     "CustomerRole",
+#     ## secondary="customer_customer_role",
+#     ## back_populates="customers"
+# )
+# CustomerRole.customers = relationship(
+#     "Customer",
+#     secondary="customer_customer_role",
+#     back_populates="roles"
+# )
 
 # One-to-Many: Customer -> Office
-Customer.office = relationship(
-    "CustomerPassword",
-    back_populates="customer",
-    ## cascade="all, delete-orphan"
-)
-CustomerPassword.customer = relationship(
-    "Customer",
-    back_populates="passwords"
-)
-
-# One-to-One: Customer -> Department, Customer -> Section, Customer -> Office
-Customer.office = relationship(
-    "Office",
-    foreign_keys=[Customer.office_id]
-)
-
-Customer.department = relationship(
-    "Department",    
-    foreign_keys=[Customer.department_id]
-)
-
-Customer.section = relationship(
-    "Section",
-    foreign_keys=[Customer.section_id]
-)
+# Customer.office = relationship(
+#     "Office",
+#     ## back_populates="customer",
+#     ## cascade="all, delete-orphan"
+# )
+# Office.customer = relationship(
+#     "Customer",
+#     back_populates="passwords"
+# )
