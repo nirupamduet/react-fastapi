@@ -31,7 +31,9 @@ def create_tables():
         customer.Base.metadata.create_all(bind=engine)
         customer_password.Base.metadata.create_all(bind=engine)
         customer_role.Base.metadata.create_all(bind=engine)
-        customer_customer_role.Base.metadata.create_all(bind=engine)
+
+        customer_customer_role.create(bind=engine, checkfirst=True)
+
         log.Base.metadata.create_all(bind=engine)
         office.Base.metadata.create_all(bind=engine)
         department.Base.metadata.create_all(bind=engine)
@@ -183,7 +185,7 @@ def seed_office_dept_section():
                 name="Head Office",
                 code="HO",
                 created_by="system",
-                created_on=datetime.utcnow()
+                created_on=datetime.datetime.now(datetime.timezone.utc)
             )
             db.add(ho)
             db.commit()

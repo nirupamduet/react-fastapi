@@ -6,5 +6,6 @@ class CustomerPassword(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     customer_sap_id = Column(String(8), ForeignKey("customers.sap_id"))
-    password_hash = Column(String(255))
-    
+    password = Column(String(255), nullable=False)
+    password_format_id = Column(Integer, nullable=False)  # Refers to PasswordFormat enum
+    password_salt = Column(String(255), nullable=True)
