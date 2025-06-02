@@ -11,3 +11,5 @@ class Department(Base):
     name = Column(String(255), nullable=False)
     created_on = Column(DateTime, default=datetime.utcnow)
     created_by = Column(String(100), nullable=True)
+    
+    office_id = Column(Integer, ForeignKey("offices.id"), nullable=True)

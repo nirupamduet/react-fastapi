@@ -24,7 +24,7 @@ Font End 	: React, TypeScript
 				
 Feature I would like to implement:-
 
-1. User Management Module 
+1. Customer, 
 2. ACL & Role Management Module 
 3. Log Management Module 
 3. Activity Log Management Module 

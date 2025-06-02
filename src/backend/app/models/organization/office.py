@@ -11,6 +11,3 @@ class Office(Base):
     name = Column(String(255), nullable=False)
     created_on = Column(DateTime, default=datetime.utcnow)
     created_by = Column(String(100), nullable=True)
-    
-    ## relationships
-    ##departments = relationship("Department", back_populates="office", uselist=False)

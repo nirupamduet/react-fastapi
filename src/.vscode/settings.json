@@ -7,7 +7,7 @@
     "python.formatting.provider": "black",
     "editor.formatOnSave": true,
     "files.exclude": {
-        "**/__init__.py": true,
+        // "**/__init__.py": true,
         "**/__pycache__": true,
     }
 }

@@ -12,7 +12,7 @@ auth_router = APIRouter()
 @auth_router.post("/auth/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     customer = get_customer_by_sap_id_or_domain_id(db, form_data.username)
-    if not customer or not verify_password(form_data.password, customer.password.password):
+    if not customer or not verify_password(form_data.password, customer.passwords.password):
         raise HTTPException(status_code=400, detail="Incorrect email or password")
     
     access_token = create_access_token(data={"sub": customer.email})
