@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from app.db.database import Base
 
+## Customer Model
 class Customer(Base):
     __tablename__ = 'customers'
 
@@ -28,9 +29,9 @@ class Customer(Base):
     last_activity_date_utc = Column(DateTime, default=datetime.utcnow)
 
     # Foreign key IDs
-    office_id = Column(Integer, ForeignKey('offices.id'), nullable=True)
-    department_id = Column(Integer, ForeignKey('departments.id'), nullable=True)
-    section_id = Column(Integer, ForeignKey('sections.id'), nullable=True)
+    #office_id = Column(Integer, ForeignKey('offices.id'), nullable=True)
+    #epartment_id = Column(Integer, ForeignKey('departments.id'), nullable=True)
+    #section_id = Column(Integer, ForeignKey('sections.id'), nullable=True)
 
     # Code columns (not foreign keys)
     office_code = Column(String(100), nullable=True)
@@ -38,11 +39,11 @@ class Customer(Base):
     section_code = Column(String(100), nullable=True)
 
     # Relationships WITHOUT back_populates (one-way)
-    office = relationship("Office")
-    department = relationship("Department")
-    section = relationship("Section")
+    # office = relationship("Office")
+    # department = relationship("Department")
+    # section = relationship("Section")
 
-    password = relationship("CustomerPassword", back_populates="customer", uselist=False)
+    password = relationship("CustomerPassword")
 
     roles = relationship(
         "CustomerRole",

@@ -3,6 +3,8 @@ import sys
 import os
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
+from passlib.context import CryptContext
+
 
 # Setup path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -11,8 +13,10 @@ from app.db.database import engine, SessionLocal
 from app.models.customers import customer, customer_password, customer_role, customer_customer_role
 from app.models.organization import department, office, section
 from app.models.logging import log
-
-from passlib.context import CryptContext
+from app.models.media import download, picture, picture_binary
+from app.models.settings import settings
+from app.models.security.permission_record_customer_role_mapping import PermissionRecordCustomerRoleMapping
+from app.models.security.permission_record import PermissionRecord
 
 # Password hashing setup
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -30,11 +34,59 @@ def create_tables():
         department.Base.metadata.create_all(bind=engine)
         section.Base.metadata.create_all(bind=engine)
 
+        ##media related tables
+        picture_binary.Base.metadata.create_all(bind=engine)
+        download.Base.metadata.create_all(bind=engine)
+        picture.Base.metadata.create_all(bind=engine)
+        
+        ##settings
+        settings.Base.metadata.create_all(bind=engine)
+
         print("✅ Tables created successfully.")
     except SQLAlchemyError as e:
         print("❌ Failed to create tables.")
         print(f"Error: {e}")
 
+
+# Seed permission and permissions for the super admin role
+def seed_permissions():
+    permissions = [
+        {"system_name": "ManageCustomers", "name": "Manage Customers", "category": "Customer"},
+        # Add more as needed
+    ]
+    
+    db: Session = SessionLocal()
+    
+    try:
+        # Fetch the super admin role
+        role1 = db.query(customer_role.CustomerRole).filter_by(system_name="super-admin").first()
+        if not role1:
+            print("❌ Super admin role not found.")
+            return
+
+        for perm_data in permissions:
+            existing = db.query(PermissionRecord).filter_by(system_name=perm_data["system_name"]).first()
+            if not existing:
+                perm = PermissionRecord(**perm_data)
+                db.add(perm)
+                db.flush()  # Ensure ID is generated
+                db.refresh(perm)
+
+                db.add(PermissionRecordCustomerRoleMapping(
+                    permission_record_id=perm.id, 
+                    customer_role_id=role1.id
+                ))
+
+        db.commit()
+        print("✅ Permissions seeded successfully.")
+    except Exception as e:
+        db.rollback()
+        print(f"❌ Error seeding permissions: {e}")
+    finally:
+        db.close()
+
+
+#see admin customers
 def seed_demo_customer():
     print("👤 Seeding demo customer...")
     db: Session = SessionLocal()
@@ -113,3 +165,4 @@ def seed_demo_customer():
 if __name__ == "__main__":
     create_tables()
     seed_demo_customer()
+    seed_permissions()
