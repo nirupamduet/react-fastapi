@@ -1,20 +1,38 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Run FastAPI (Uvicorn)",
-            "type": "debugpy",
-            "request": "launch",
-            "cwd": "${workspaceFolder}/backend",
-            "program": "${workspaceFolder}/.venv/Scripts/uvicorn.exe",
-            "args": [
-                "app.main:app",
-                "--reload",
-                "--port",
-                "8888"
-            ],
-            "console": "integratedTerminal",
-            "justMyCode": true
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run FastAPI (Uvicorn)",
+      "type": "debugpy",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/backend",
+      "program": "${workspaceFolder}/.venv/Scripts/uvicorn.exe", 
+      "args": [
+        "app.main:app",
+        "--reload",
+        "--port",
+        "8888"
+      ],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "React: Start and Debug",
+      "type": "chrome",                      // ✅ use pwa-chrome
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/frontend/src",
+      "runtimeExecutable": "${execPath}",
+      "preLaunchTask": "npm: start"              // ✅ must match tasks.json
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Start All (FastAPI + React)",
+      "configurations": [
+        "Run FastAPI (Uvicorn)",
+        "React: Start and Debug"
+      ]
+    }
+  ]
 }

@@ -14,9 +14,12 @@ from sqlalchemy.orm import relationship
 # One-to-Many: Customer -> CustomerPassword
 Customer.passwords = relationship(
     "CustomerPassword",
-    back_populates="customer",
-    cascade="all, delete-orphan"
+    #back_populates="customer"
 )
+# CustomerPassword.customer = relationship(
+#     "Customer",
+#     back_populates="passwords"
+# )
 
 # Many-to-Many: Customer <-> CustomerRole
 Customer.roles = relationship(
@@ -25,10 +28,7 @@ Customer.roles = relationship(
      back_populates="customers"
  )
 
-CustomerPassword.customer = relationship(
-    "Customer",
-    back_populates="passwords"
-)
+
 CustomerRole.customers = relationship(
      "Customer",
      secondary=customer_customer_role,
