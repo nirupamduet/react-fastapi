@@ -6,3 +6,4 @@ package-lock.json
 __pycache__/
 *.py[cod]
 *$py.class
+/src/frontend/yarn.lock
