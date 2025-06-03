@@ -6,7 +6,7 @@
       "type": "debugpy",
       "request": "launch",
       "cwd": "${workspaceFolder}/backend",
-      "program": "${workspaceFolder}/.venv/Scripts/uvicorn.exe", 
+      "program": "${workspaceFolder}/.venv/Scripts/uvicorn.exe",
       "args": [
         "app.main:app",
         "--reload",
@@ -18,12 +18,12 @@
     },
     {
       "name": "React: Start and Debug",
-      "type": "chrome",                      // ✅ use pwa-chrome
+      "type": "chrome", // ✅ use pwa-chrome
       "request": "launch",
-      "url": "http://localhost:3000",
+      "url": "http://127.0.0.1:8889",
       "webRoot": "${workspaceFolder}/frontend/src",
       "runtimeExecutable": "${execPath}",
-      "preLaunchTask": "npm: start"              // ✅ must match tasks.json
+      "preLaunchTask": "npm: start" // ✅ must match tasks.json
     }
   ],
   "compounds": [

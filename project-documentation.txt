@@ -1,5 +1,18 @@
 This is a Base Project template.
 
+
+I am working on React, TypeScript based fontend app that consumes a api.
+For UI  we are using Material UI and PrimeReact for datatable and icons from both.
+
+Now help me to create a login page.
+
+
+UI Library used as tempalte
+============================
+
+https://github.com/uilibrary/matx-react
+
+
 Forked from :
 https://github.com/Buuntu/fastapi-react
 
@@ -51,6 +64,9 @@ Feature I would like to implement:-
 2. ACL & Role Management Module 
 3. Log Management Module 
 3. Activity Log Management Module 
+
+
+
 
 
 
