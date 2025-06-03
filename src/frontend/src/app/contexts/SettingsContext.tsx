@@ -1,5 +1,7 @@
 import React, { createContext, useState, ReactNode } from "react";
-import merge from "lodash/merge";
+
+import merge from "./lodash/merge";
+
 import { MatxLayoutSettings } from "app/components/MatxLayout/settings";
 
 // Define the shape of settings using the imported default
@@ -10,7 +12,7 @@ interface SettingsContextType {
   updateSettings: (update: Partial<SettingsType>) => void;
 }
 
-export const SettingsContext = createContext < SettingsContextType > ({
+export const SettingsContext = createContext<SettingsContextType>({
   settings: MatxLayoutSettings,
   updateSettings: () => { },
 });
@@ -24,7 +26,7 @@ export default function SettingsProvider({
   settings,
   children,
 }: SettingsProviderProps): JSX.Element {
-  const [currentSettings, setCurrentSettings] = useState < SettingsType > (
+  const [currentSettings, setCurrentSettings] = useState<SettingsType>(
     settings || MatxLayoutSettings
   );
 
@@ -34,6 +36,7 @@ export default function SettingsProvider({
   };
 
   return (
+
     <SettingsContext.Provider
       value={{ settings: currentSettings, updateSettings: handleUpdateSettings }}
     >

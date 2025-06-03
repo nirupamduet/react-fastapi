@@ -9,7 +9,11 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "ghp": "vite build && gh-pages -d build"
+    "ghp": "vite build && gh-pages -d build",
+    "ts-init": "ts-migrate init src",
+    "ts-rename": "ts-migrate rename src",
+    "ts-migrate": "ts-migrate migrate src",
+    "ts-migrate-full": "npm run ts-init && npm run ts-rename && npm run ts-migrate"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^2.1.3",
@@ -53,6 +57,7 @@
     "eslint-plugin-react-refresh": "^0.4.13",
     "gh-pages": "^6.2.0",
     "globals": "^15.11.0",
+    "ts-migrate": "^0.1.35",
     "vite": "^5.4.19",
     "vite-plugin-pwa": "^0.20.5"
   }
