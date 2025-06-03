@@ -1,6 +1,7 @@
-import { lazy } from "react";
+import { lazy, ReactNode } from "react";
 import Loadable from "app/components/Loadable";
 
+// Lazy-loaded components
 const AppForm = Loadable(lazy(() => import("./forms/AppForm")));
 const AppMenu = Loadable(lazy(() => import("./menu/AppMenu")));
 const AppIcon = Loadable(lazy(() => import("./icons/AppIcon")));
@@ -16,7 +17,14 @@ const AppSnackbar = Loadable(lazy(() => import("./snackbar/AppSnackbar")));
 const AppAutoComplete = Loadable(lazy(() => import("./auto-complete/AppAutoComplete")));
 const AppExpansionPanel = Loadable(lazy(() => import("./expansion-panel/AppExpansionPanel")));
 
-const materialRoutes = [
+// Route type
+interface RouteType {
+  path: string;
+  element: ReactNode;
+}
+
+// Material UI routes
+const materialRoutes: RouteType[] = [
   { path: "/material/table", element: <AppTable /> },
   { path: "/material/form", element: <AppForm /> },
   { path: "/material/buttons", element: <AppButton /> },
