@@ -1,0 +1,13 @@
+Font End (WEB) :
+****************
+
+I am planning for a project, front end will consume api and there will be a API backend.
+Font End 	: 
+	React, TypeScript
+	Material UI used except DataTable 		## 
+	PrimeReact UI for DataTable operations	## 
+	
+	
+https://nextjs-demo.tailadmin.com/form-elements
+https://primereact.org/
+https://mui.com/material-ui/

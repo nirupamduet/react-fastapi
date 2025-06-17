@@ -1,4 +1,10 @@
-Backend : https://github.com/fastapi-admin/fastapi-admin
+Next JS Reference Project (Font end)
+************************************
+https://github.com/TailAdmin/free-nextjs-admin-dashboard
+
+
+
+Python FastAPI Backedn Project (Backend)
+***************************************
 https://github.com/fastapi-admin/fastapi-admin
 
-Fontend : https://github.com/TailAdmin/free-nextjs-admin-dashboard

@@ -1,0 +1,12 @@
+Chat GPT :
+**********
+
+I am planning for a project where back end API will use Python, Fast API, MYSQL DB.
+Common admin feature will be like NopCommerce project.
+
+Feature to implement.
+
+1. Customer management
+2. ACL & Role Management Module 
+3. Log Management Module 
+4. Activity Log Management Module 
