@@ -66,6 +66,12 @@ Feature I would like to implement:-
 3. Activity Log Management Module 
 
 
+Font End Module
+----------------
+Tail Admin Next JS template 
+https://nextjs-demo.tailadmin.com/form-elements
+
+
 
 
 
