@@ -1,0 +1,23 @@
+class BonusDataItax(Base):
+    __tablename__ = 'bonus_data_itax'
+
+    office = Column(Integer, nullable=True)
+    slno = Column(Integer, nullable=True)
+    indx = Column(String(255), nullable=True)
+    dsg = Column(String(255), nullable=True)
+    dpt = Column(String(255), nullable=True)
+    prd = Column(String(255), nullable=True)
+    basic = Column(Integer, nullable=True)
+    typc = Column(Integer, nullable=True)
+    nodays = Column(Integer, nullable=True)
+    cbc = Column(Integer, nullable=True)
+    pertem = Column(Integer, nullable=True)
+    name = Column(String(255), nullable=True)
+    desg_name = Column(String(255), nullable=True)
+    dept_name = Column(String(255), nullable=True)
+    bnk_name = Column(String(255), nullable=True)
+    ac_no = Column(String(255), nullable=True)
+    time_scle = Column(String(255), nullable=True)
+    remarks = Column(String(255), nullable=True)
+    amount = Column(Integer, nullable=True)
+    type = Column(String(255), nullable=True)
