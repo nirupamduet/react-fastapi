@@ -22,16 +22,9 @@ export default function LogInForm() {
     const handleLogin = async () => {
       try
       {
-        alert('Logging in...');
-        const data = new URLSearchParams();
-        data.append('username', userName);  
-        data.append('password', password);
-        data.append('grant_type', 'password');  
-
-        const res = await axios.post(`${baseUrl}/auth/login`, data.toString(), {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
+        const res = await axios.post(`${baseUrl}/auth/json-login`, {
+          username: userName,
+          password: password,
         });
 
         const access_token = res.data.access_token;
@@ -44,7 +37,7 @@ export default function LogInForm() {
           router.push('/admin');
         }
       }
-      catch (err) 
+      catch (err)  
       {
         alert('Invalid credentials');
       }
