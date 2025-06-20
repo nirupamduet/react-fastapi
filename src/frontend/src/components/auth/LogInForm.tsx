@@ -22,26 +22,32 @@ export default function LogInForm() {
     const handleLogin = async () => {
       try
       {
-          const res = await axios.post(`${baseUrl}/auth/login`, {
-            userName,
-            password,
-          });
+        alert('Logging in...');
+        const data = new URLSearchParams();
+        data.append('username', userName);  
+        data.append('password', password);
+        data.append('grant_type', 'password');  
 
-          const { access_token } = res.data;
+        const res = await axios.post(`${baseUrl}/auth/login`, data.toString(), {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        });
 
-          if(access_token){
-            localStorage.setItem('token', access_token);
-            router.push('/admin');
-          }else{
-            return
-              <Alert/>
-              
-          }
-        } 
-        catch (err) 
-        {
-          alert('Invalid credentials');
+        const access_token = res.data.access_token;
+
+        // Optionally store the token
+        localStorage.setItem('token', access_token);
+
+        if(access_token){
+          localStorage.setItem('token', access_token);
+          router.push('/admin');
         }
+      }
+      catch (err) 
+      {
+        alert('Invalid credentials');
+      }
   };
 
   return (
@@ -68,13 +74,13 @@ export default function LogInForm() {
             </h3>
           </div>
           <div>
-            <form>
+            <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
               <div className="space-y-6">
                 <div>
                   <Label>
                     Domain Id/SAP Id <span className="text-error-500">*</span>{" "}
                   </Label>
-                  <Input placeholder="Enter your Domain Id or SAP ID" type="text" />
+                  <Input onChange={(e) => setUsername(e.target.value)} placeholder="Enter your Domain Id or SAP ID" type="text" />
                 </div>
                 <div>
                   <Label>
@@ -84,6 +90,7 @@ export default function LogInForm() {
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}
@@ -112,7 +119,7 @@ export default function LogInForm() {
                   </Link>
                 </div>
                 <div>
-                  <Button className="w-full" size="sm" onClick={handleLogin}>
+                  <Button className="w-full" size="sm">
                     Sign in
                   </Button>
                 </div>

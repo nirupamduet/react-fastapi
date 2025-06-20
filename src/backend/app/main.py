@@ -7,6 +7,7 @@ import uvicorn
 from app.core import config
 from app.services.auth.auth_service import get_current_active_user
 from app.db.session import SessionLocal
+from fastapi.middleware.cors import CORSMiddleware
 
 # API Routers
 from app.api.api_v1.routers.auth import auth_router
@@ -18,6 +19,16 @@ app = FastAPI(
     docs_url="/api/docs",
     openapi_url="/api/openapi.json"
 )
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=config.settings.ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # DB session middleware (adds `request.state.db`)
 @app.middleware("http")
