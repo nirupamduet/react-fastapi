@@ -2,13 +2,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "React: Start and Debug",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://127.0.0.1:8889",
-      "webRoot": "${workspaceFolder}/frontend/src",
-      "runtimeExecutable": "${execPath}",
-      "preLaunchTask": "npm: start"
+      "name": "Run & Debug Next.js Application",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "timeout": 30000
     }
   ]
 }

@@ -5,42 +5,35 @@ import Label from "@/components/form/Label";
 import Button from "@/components/ui/button/Button";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "@/icons";
 import Link from "next/link";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import axios from 'axios';
-import Alert from "@/components/ui/alert/Alert";
+import React, { useEffect, useRef, useState } from "react";
+import { signIn } from "next-auth/react";
 
 
 export default function LogInForm() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [userName, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const router = useRouter();
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-    const handleLogin = async () => {
-      try
-      {
-        const res = await axios.post(`${baseUrl}/auth/json-login`, {
-          username: userName,
-          password: password,
-        });
+  useEffect(() => {
+    // On mount, read values directly from DOM inputs (handle autofill)
+    if (usernameRef.current?.value) setUsername(usernameRef.current.value);
+    if (passwordRef.current?.value) setPassword(passwordRef.current.value);
+  }, []);
 
-        const access_token = res.data.access_token;
+  const handleLogin = async (e: React.FormEvent) => {
+    
+    e.preventDefault();
 
-        // Optionally store the token
-        localStorage.setItem('token', access_token);
-
-        if(access_token){
-          localStorage.setItem('token', access_token);
-          router.push('/admin');
-        }
-      }
-      catch (err)  
-      {
-        alert('Invalid credentials');
-      }
+    const res = await signIn("credentials", {
+      username,
+      password,
+      redirect: true,
+      callbackUrl: "/admin",
+    });
   };
 
   return (
@@ -67,13 +60,18 @@ export default function LogInForm() {
             </h3>
           </div>
           <div>
-            <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
+            <form onSubmit={(e) => handleLogin(e)}>
               <div className="space-y-6">
                 <div>
                   <Label>
                     Domain Id/SAP Id <span className="text-error-500">*</span>{" "}
                   </Label>
-                  <Input onChange={(e) => setUsername(e.target.value)} placeholder="Enter your Domain Id or SAP ID" type="text" />
+                  <Input 
+                          onChange={(e) => setUsername(e.target.value)} 
+                          placeholder="Enter your Domain Id or SAP ID" 
+                          type="text" 
+                          ref={usernameRef}
+                          defaultValue={username}/>
                 </div>
                 <div>
                   <Label>
@@ -82,7 +80,9 @@ export default function LogInForm() {
                   <div className="relative">
                     <Input
                       type={showPassword ? "text" : "password"}
+                      defaultValue={password}
                       placeholder="Enter your password"
+                      ref={passwordRef}
                       onChange={(e) => setPassword(e.target.value)}
                     />
                     <span

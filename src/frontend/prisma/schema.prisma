@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model customer_customer_role {
+  customer_sap_id  String         @db.VarChar(8)
+  customer_role_id Int
+  customers        customers      @relation(fields: [customer_sap_id], references: [sap_id], onDelete: NoAction, onUpdate: NoAction, map: "customer_customer_role_ibfk_1")
+  customer_roles   customer_roles @relation(fields: [customer_role_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "customer_customer_role_ibfk_2")
+
+  @@id([customer_sap_id, customer_role_id])
+  @@index([customer_role_id], map: "customer_role_id")
+}
+
+model customer_passwords {
+  id                 Int        @id @default(autoincrement())
+  customer_sap_id    String?    @db.VarChar(8)
+  password           String     @db.VarChar(255)
+  password_format_id Int
+  password_salt      String?    @db.VarChar(255)
+  customers          customers? @relation(fields: [customer_sap_id], references: [sap_id], onDelete: NoAction, onUpdate: NoAction, map: "customer_passwords_ibfk_1")
+
+  @@index([customer_sap_id], map: "customer_sap_id")
+  @@index([id], map: "ix_customer_passwords_id")
+}
+
+model customer_roles {
+  id                     Int                      @id @default(autoincrement())
+  name                   String                   @unique(map: "name") @db.VarChar(50)
+  system_name            String                   @unique(map: "system_name") @db.VarChar(50)
+  is_active              Boolean?
+  is_system_role         Boolean?
+  customer_customer_role customer_customer_role[]
+
+  @@index([id], map: "ix_customer_roles_id")
+}
+
+model customers {
+  sap_id                      String                   @id @db.VarChar(8)
+  domain_id                   String?                  @unique(map: "domain_id") @db.VarChar(20)
+  email                       String?                  @db.VarChar(255)
+  email_to_revalidate         String?                  @db.VarChar(255)
+  admin_comment               String?                  @db.VarChar(255)
+  require_re_login            Boolean?
+  failed_login_attempts       Int?
+  cannot_login_until_date_utc DateTime?                @db.DateTime(0)
+  is_active                   Boolean?
+  deleted                     Boolean?
+  is_system_account           Boolean?
+  system_name                 String?                  @db.VarChar(400)
+  last_ip_address             String?                  @db.VarChar(45)
+  created_on_utc              DateTime?                @db.DateTime(0)
+  last_login_date_utc         DateTime?                @db.DateTime(0)
+  last_activity_date_utc      DateTime?                @db.DateTime(0)
+  office_id                   Int?
+  department_id               Int?
+  section_id                  Int?
+  office_code                 String?                  @db.VarChar(100)
+  department_code             String?                  @db.VarChar(100)
+  section_code                String?                  @db.VarChar(100)
+  customer_customer_role      customer_customer_role[]
+  customer_passwords          customer_passwords[]
+  offices                     offices?                 @relation(fields: [office_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "customers_ibfk_1")
+  departments                 departments?             @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "customers_ibfk_2")
+  sections                    sections?                @relation(fields: [section_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "customers_ibfk_3")
+  logs                        logs[]
+
+  @@index([department_id], map: "department_id")
+  @@index([sap_id], map: "ix_customers_sap_id")
+  @@index([office_id], map: "office_id")
+  @@index([section_id], map: "section_id")
+}
+
+model departments {
+  id         Int         @id @default(autoincrement())
+  code       String      @unique(map: "code") @db.VarChar(100)
+  name       String      @db.VarChar(255)
+  created_on DateTime?   @db.DateTime(0)
+  created_by String?     @db.VarChar(100)
+  office_id  Int?
+  customers  customers[]
+  offices    offices?    @relation(fields: [office_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "departments_ibfk_1")
+  sections   sections[]
+
+  @@index([id], map: "ix_departments_id")
+  @@index([office_id], map: "office_id")
+}
+
+model downloads {
+  id               Int       @id @default(autoincrement())
+  download_guid    String    @unique(map: "download_guid") @db.VarChar(64)
+  use_download_url Boolean?
+  download_url     String?   @db.VarChar(256)
+  download_binary  Bytes?    @db.Blob
+  content_type     String?   @db.VarChar(20)
+  filename         String?   @db.VarChar(100)
+  extension        String?   @db.VarChar(10)
+  is_new           Boolean?
+  created_on_utc   DateTime? @db.DateTime(0)
+
+  @@index([id], map: "ix_downloads_id")
+}
+
+model logs {
+  id              Int            @id @default(autoincrement())
+  log_level       logs_log_level
+  short_message   String         @db.VarChar(500)
+  full_message    String?        @db.Text
+  ip_address      String?        @db.VarChar(45)
+  customer_sap_id String?        @db.VarChar(8)
+  page_url        String?        @db.VarChar(255)
+  referrer_url    String?        @db.VarChar(255)
+  created_on_utc  DateTime       @db.DateTime(0)
+  customers       customers?     @relation(fields: [customer_sap_id], references: [sap_id], onDelete: NoAction, onUpdate: NoAction, map: "logs_ibfk_1")
+
+  @@index([customer_sap_id], map: "customer_sap_id")
+  @@index([id], map: "ix_logs_id")
+}
+
+model offices {
+  id          Int           @id @default(autoincrement())
+  code        String        @unique(map: "code") @db.VarChar(100)
+  name        String        @db.VarChar(255)
+  created_on  DateTime?     @db.DateTime(0)
+  created_by  String?       @db.VarChar(100)
+  customers   customers[]
+  departments departments[]
+
+  @@index([id], map: "ix_offices_id")
+}
+
+model permission_records {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique(map: "name") @db.VarChar(255)
+  system_name String  @unique(map: "system_name") @db.VarChar(255)
+  category    String? @db.VarChar(255)
+
+  @@index([id], map: "ix_permission_records_id")
+}
+
+model picture_binaries {
+  id          Int        @id @default(autoincrement())
+  binary_data Bytes      @db.Blob
+  pictures    pictures[]
+
+  @@index([id], map: "ix_picture_binaries_id")
+}
+
+model pictures {
+  id                Int               @id @default(autoincrement())
+  picture_binary_id Int?
+  mime_type         String?           @db.VarChar(20)
+  seo_filename      String?           @db.VarChar(300)
+  alt_attribute     String?           @db.VarChar(300)
+  title_attribute   String?           @db.VarChar(300)
+  is_new            Boolean?
+  created_on_utc    DateTime?         @db.DateTime(0)
+  picture_binaries  picture_binaries? @relation(fields: [picture_binary_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "pictures_ibfk_1")
+
+  @@index([id], map: "ix_pictures_id")
+  @@index([picture_binary_id], map: "picture_binary_id")
+}
+
+model sections {
+  id            Int          @id @default(autoincrement())
+  code          String       @unique(map: "code") @db.VarChar(100)
+  name          String       @db.VarChar(255)
+  created_on    DateTime?    @db.DateTime(0)
+  created_by    String?      @db.VarChar(100)
+  department_id Int?
+  customers     customers[]
+  departments   departments? @relation(fields: [department_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "sections_ibfk_1")
+
+  @@index([department_id], map: "department_id")
+  @@index([id], map: "ix_sections_id")
+}
+
+model settings {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique(map: "name") @db.VarChar(200)
+  value String? @db.VarChar(2000)
+
+  @@index([id], map: "ix_settings_id")
+}
+
+enum logs_log_level {
+  DEBUG
+  INFO
+  WARNING
+  ERROR
+  CRITICAL
+}

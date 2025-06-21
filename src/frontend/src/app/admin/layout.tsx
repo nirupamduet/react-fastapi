@@ -11,6 +11,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
 
   // Dynamic class for main content margin based on sidebar state
