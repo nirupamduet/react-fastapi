@@ -738,3 +738,25 @@ span.flatpickr-weekday,
   opacity: 0.8;
   cursor: grabbing; /* Changes the cursor to indicate dragging */
 }
+#nprogress {
+  pointer-events: none;
+  width: 1050px!important;
+}
+
+#nprogress .bar {
+  background: #5750f1; /* Indigo (like NextAdmin) */
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 1050px!important;
+  height: 3px;
+}
+
+#nprogress .peg {
+  display: none;
+}
+
+#nprogress .spinner {
+  display: none;
+}

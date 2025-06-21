@@ -3,22 +3,21 @@ import './globals.css';
 
 import { SidebarProvider } from '@/context/SidebarContext';
 import { ThemeProvider } from '@/context/ThemeContext';
+import NextTopLoader from 'nextjs-toploader';
 
 const outfit = Outfit({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="en">
-      <body className={`${outfit.className} dark:bg-gray-900`}>
-        
+      <body className={`${outfit.className} dark:bg-gray-900`}>        
+        <NextTopLoader />
         <ThemeProvider>
-          <SidebarProvider>{children}</SidebarProvider>
+          <SidebarProvider>
+            {children}
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

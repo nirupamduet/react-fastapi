@@ -15,7 +15,7 @@ interface InputProps {
   success?: boolean;
   error?: boolean;
   hint?: string; // Optional hint text
-  ref?:string; // Optional ref for input element
+  ref?: React.Ref<HTMLInputElement>; // Optional ref for input element
 }
 
 const Input: FC<InputProps> = ({
