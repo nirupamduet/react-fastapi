@@ -1,8 +1,8 @@
 import { Outfit } from 'next/font/google';
-import '../styles/globals.css';
+import '../content/styles/globals.css';
 
-import { SidebarProvider } from '@/context/SidebarContext';
-import { ThemeProvider } from '@/context/ThemeContext';
+import { SidebarProvider } from '@/components/admin/context/SidebarContext';
+import { ThemeProvider } from '@/components/admin/context/ThemeContext';
 import NextTopLoader from 'nextjs-toploader';
 
 const outfit = Outfit({

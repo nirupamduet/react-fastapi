@@ -149,7 +149,6 @@ Static assets like images, fonts, and icons.
 /app
 │
 ├── layout.tsx                   # Root layout (HTML shell)
-├── globals.css
 │
 ├── /auth                        # UI views (sign in, sign up, etc.)
 │   └── signin/page.tsx
@@ -166,6 +165,23 @@ Static assets like images, fonts, and icons.
 ├── /api
 │   └── /auth/[...nextauth]/route.ts # NextAuth config
 │   └── /users/route.ts          # Optional: custom API routes
+│
+/components                     # Global reusable UI (admin, users, buttons, layout, for all users common)
+│   ├── ui/
+│   ├── Navbar.tsx
+│   └── Sidebar.tsx
+│
+/config
+|
+│  ├── site.ts           # App name, description, favicon info
+│  ├── auth.ts           # JWT config, auth constants
+│  └── env.ts            # Zod-validated env loader (e.g., from process.env)
+│
+/docs
+|
+│  ├── architecture.md
+│  ├── deployment.md 
+│  └── folder-structure.md
 /domain                          # 💡 App “features” or “modules”
 │
 ├── /auth
@@ -186,16 +202,17 @@ Static assets like images, fonts, and icons.
 ├── /product                     # Another module
 │   ├── ...
 │
-/config
-|
-│  ├── site.ts           # App name, description, favicon info
-│  ├── auth.ts           # JWT config, auth constants
-│  └── env.ts            # Zod-validated env loader (e.g., from process.env)
+
 /hooks
 |
 │  ├── useAuth.ts        # Wrapper around session
 │  ├── useDebounce.ts
 │  └── useClickOutside.ts
+/content
+|
+│  ├── styles
+│  ├── icons
+│  ├── js
 /lib
 │
 ├── auth.ts                      # getServerSession, hasRole, etc.
@@ -203,11 +220,7 @@ Static assets like images, fonts, and icons.
 ├── logger.ts                    # Winston/pino logger
 ├── utils.ts                     # Generic utilities
 │
-/components                     # Global reusable UI (buttons, layout)
-│   ├── ui/
-│   ├── Navbar.tsx
-│   └── Sidebar.tsx
-│
+
 /types                          # Global types (shared app-wide)
 │   └── index.ts
 │

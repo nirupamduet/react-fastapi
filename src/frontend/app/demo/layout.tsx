@@ -1,9 +1,9 @@
 "use client";
 
-import { useSidebar } from "@/context/SidebarContext";
-import AppHeader from "@/layout/AppHeader";
-import AppSidebar from "@/layout/AppSidebar";
-import Backdrop from "@/layout/Backdrop";
+import { useSidebar } from "@/components/admin/context/SidebarContext";
+import AppHeader from "@/components/admin/header/AppHeader";
+import AppSidebar from "@/components/admin/sidebar/AppSidebar";
+import Backdrop from "@/components/admin/backdrop/Backdrop";
 import React from "react";
 
 export default function AdminLayout({
