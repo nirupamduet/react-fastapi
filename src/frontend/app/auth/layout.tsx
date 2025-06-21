@@ -1,9 +1,6 @@
-import GridShape from "@/components/common/GridShape";
-import ThemeTogglerTwo from "@/components/common/ThemeTogglerTwo";
+import ThemeTogglerTwo from "@/components/shared/ThemeTogglerTwo";
 
 import { ThemeProvider } from "@/components/admin/context/ThemeContext";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 export default function AuthLayout({

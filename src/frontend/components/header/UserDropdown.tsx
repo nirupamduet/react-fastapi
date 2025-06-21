@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { signOut } from 'next-auth/react';
-import SignOutButton from "../auth/SignOutButton";
+import SignOutButton from "../shared/auth/SignOutButton";
 
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);

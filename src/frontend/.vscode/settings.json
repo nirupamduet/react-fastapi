@@ -6,7 +6,6 @@
   "files.exclude": {
     "**/node_modules": true,
     "**/.next/**": true,
-    "**/.gitignore": true,
-    "**/package-lock.json": true,
+    "**/.gitignore": true
   }
 }

@@ -2,15 +2,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run & Debug Next.js Application",
-      "type": "node",
-      "request": "attach",
-      "port": 9229,
-      "restart": true,
+      "name": "Debug Next.js (npm run dev)",
+      "type": "pwa-node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
       "skipFiles": [
         "<node_internals>/**"
-      ],
-      "timeout": 30000
+      ]
     }
   ]
 }
