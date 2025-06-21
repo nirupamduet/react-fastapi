@@ -2,5 +2,11 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "prettier.printWidth": 100,
-  "prettier.trailingComma": "none"
+  "prettier.trailingComma": "none",
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.next/**": true,
+    "**/.gitignore": true,
+    "**/package-lock.json": true,
+  }
 }
