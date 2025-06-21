@@ -4,7 +4,7 @@
   "prettier.printWidth": 100,
   "prettier.trailingComma": "none",
   "files.exclude": {
-    "**/node_modules": true,
+    // "**/node_modules": true,
     "**/.next/**": true,
     "**/.gitignore": true
   }

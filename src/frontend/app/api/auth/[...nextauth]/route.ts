@@ -23,7 +23,8 @@ export const authOptions: NextAuthOptions = {
         const username = credentials?.username;
         const password = credentials?.password;
 
-        const user = await prisma.customers.findUnique({
+
+        const user = await prisma.customers.findFirst({
           where: {
             OR: [
               { sap_id: credentials.username },
@@ -38,10 +39,11 @@ export const authOptions: NextAuthOptions = {
           }
         });
 
+        console.log("comming here done");
         if (!user || user.customer_passwords.length === 0) return null;
 
         //get last password hash from the database
-        const lastPasswordHash = user.customer_passwords[0].hash;
+        const lastPasswordHash = user.customer_passwords[0].password;
         const isValid = await bcrypt.compare(credentials.password, lastPasswordHash);
 
         // If the password is not valid, return null
