@@ -1,0 +1,25 @@
+Prisma Setup:
+-------------
+* Delete prisma folder if exists
+
+* npx prisma init
+
+* update schema 'mysql' from prisma/schema.prisma it must be like below
+
+    //remove output dir
+    //change provider to mysql
+
+    generator client {
+        provider = "prisma-client-js"
+    }
+
+    datasource db {
+        provider = "mysql"
+        url      = env("DATABASE_URL")
+    }
+
+* npx prisma db pull
+
+* npx prisma generate
+
+* npx next dev

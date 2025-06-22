@@ -1,9 +1,0 @@
-Prisma:
--------
-* Delete prisma folder
-
-* npx prisma init
-
-* update schema 'mysql' from prisma/schema.prisma
-
-* npx prisma db pull
